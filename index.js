@@ -7,6 +7,10 @@ const endPoint = "http://localhost:3000/api/v1/workouts"
 
 document.addEventListener('DOMContentLoaded', () => {
     getWorkouts()
+
+    const createWorkoutForm = document.querySelector("#create-workout-form")
+
+    createWorkoutForm.addEventListener("submit", (e) => createFormHandler(e))
 })
 
 function getWorkouts(){
@@ -27,4 +31,18 @@ function getWorkouts(){
             document.querySelector('#workout-container').innerHTML+= workoutData
         })
     })
+}
+
+function createFormHandler(e) {
+    e.preventDefault()
+    const titleInput = document.querySelector('#input-title').value
+    const descriptionInput = document.querySelector('#input-description').value
+    const locationInput = document.querySelector('#input-location').value
+    const categoryId = parseInt(document.querySelector('#categories').value)
+
+    postFetch(titleInput, descriptionInput, locationInput, categoryId)
+}
+
+function postFetch(title, description, location, category_id) {
+    
 }
