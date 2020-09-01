@@ -1,10 +1,5 @@
 const endPoint = "http://localhost:3000/api/v1/workouts"
 
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     getWorkouts()
 
@@ -18,7 +13,13 @@ function getWorkouts(){
     .then(response => response.json())
     .then(workouts => {
         workouts.data.forEach(workout => {
-            const workoutData = `
+            render(workout)
+        })
+    })
+}
+
+function render(workout){
+    const workoutData = `
             <div data-id=${workout.id}>
                 <h2> ${workout.attributes.title}</h2>
                 <h3> ${workout.attributes.location}</h3>
@@ -29,9 +30,8 @@ function getWorkouts(){
             <br><br>`;
 
             document.querySelector('#workout-container').innerHTML+= workoutData
-        })
-    })
 }
+
 
 function createFormHandler(e) {
     e.preventDefault()
@@ -44,5 +44,18 @@ function createFormHandler(e) {
 }
 
 function postFetch(title, description, location, category_id) {
-    
+   const bodyData = {title, description, location, category_id}
+   fetch(endPoint, {
+       method: "POST",
+       headers: {"Content-type": "application/json"},
+       body: JSON.stringify(bodyData)
+   }) 
+   .then(response => response.json())
+   .then(workout => {
+        console.log(workout);
+        const workoutData = workout.data
+        render(workoutData)
+
+
+   })
 }
