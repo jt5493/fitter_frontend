@@ -1,4 +1,7 @@
 class App {
+    constructor(){
+        this.adapter = new Adapter();
+    }
     attachEventListeners() {
       document.querySelector('#workout-container').addEventListener('click', e => {
         const id = e.target.dataset.id;
@@ -15,16 +18,7 @@ class App {
         const category_id = parseInt(e.target.querySelector('#categories').value)
 
         const bodyJSON = { workout, title, description, location, category_id }
-        fetch(`http://localhost:3000/api/v1/workouts/${workout.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify(bodyJSON),
-        })
-            .then(res => res.json())
-            .then(updatedWorkout => console.log(updatedWorkout));
+        this.adapter.updateWorkout(workout.id, bodyJSON).then(updatedWorkout => console.log(updatedWorkout))
       })
     }
 }

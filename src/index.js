@@ -4,20 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = new App();
     app.attachEventListeners();
 
-    getWorkouts()
+    app.adapter.fetchWorkouts().then(workouts => {
+        workouts.data.forEach(workout => {
+            let newWorkout = new Workout(workout, workout.attributes)
+
+            document.querySelector('#workout-container').innerHTML += newWorkout.renderWorkoutCard();
+        })
+    })
+
+  
 
     const createWorkoutForm = document.querySelector("#create-workout-form")
     createWorkoutForm.addEventListener("submit", (e) => createFormHandler(e))
 
-    // const workoutContainer = document.querySelector('#workout-container')
-    // workoutContainer.addEventListener('click', e => {
-        
-    //     const id = e.target.dataset.id;
-    //     const workout = Workout.findById(id);
-        
-    //     document.querySelector('#workout-update').innerHTML = workout.renderUpdateForm();
-    // })
-    // document.querySelector('#workout-update').addEventListener('submit', e => updateFormHandler(e))
 })
 
 function updateFormHandler(e) {
@@ -48,18 +47,7 @@ function patchWorkout(workout, title, description, location, category_id) {
   
 }
 
-function getWorkouts(){
-    fetch(endPoint)
-    .then(response => response.json())
-    .then(workouts => {
-        workouts.data.forEach(workout => {
-        
-            let newWorkout = new Workout(workout, workout.attributes)
 
-            document.querySelector('#workout-container').innerHTML += newWorkout.renderWorkoutCard();
-        })
-    })
-}
 
 
 
