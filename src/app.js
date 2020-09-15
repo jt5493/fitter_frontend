@@ -17,7 +17,10 @@ class App {
         const category_id = parseInt(document.querySelector('#categories').value)
 
         const bodyJSON = { title, description, location, category_id }
-        this.adapter.postWorkout(bodyJSON).then(workout => console.log(workout))
+        this.adapter.postWorkout(bodyJSON).then(workout => {
+          const newWorkout = new Workout(workout, workout.data.attributes)
+          document.querySelector('#workout-container').innerHTML += newWorkout.renderWorkoutCard();
+        })
       });
 
       document.querySelector('#workout-update').addEventListener('submit', e => {
