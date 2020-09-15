@@ -16,4 +16,15 @@ class Adapter {
             body: JSON.stringify(body),
         }).then(response => response.json());
     }
+
+    postWorkout(body) {
+        return fetch(`${this.baseUrl}/workouts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: JSON.stringify(body),
+        }).then(response => response.json());
+    }
 }
