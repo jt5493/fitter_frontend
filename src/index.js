@@ -17,15 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // const createWorkoutForm = document.querySelector("#create-workout-form")
     // createWorkoutForm.addEventListener("submit", (e) => createFormHandler(e))
 
-    // const changeColor = document.querySelector('#change-color')
-    // changeColor.addEventListener('click',  () => changePageColor());
+    const changeColor = document.querySelector('#change-color')
+    changeColor.addEventListener('click',  () => changePageColor());
 })
 
-// document.body.style.backgroundColor = "yellow"
+
 
 function changePageColor() {
-    fetch("http://localhost:3000/api/v1/ping", {
-
+    fetch("http://localhost:3000/api/v1/ping").then(() => {
+        document.body.style.backgroundColor = "yellow" 
     })
 }
 
